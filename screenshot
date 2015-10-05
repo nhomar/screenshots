@@ -8,7 +8,7 @@
 # Requirements:
 #  - shutter
 #  - awscli
-#  - zenity
+#  - notify-send
 #  - xclip
 # Note: The directory defined in $SCREENSHOT_PATH needs to exist!
 #
@@ -51,10 +51,7 @@ if [ -f ${FILE_PATH} ]; then
 	printf "${SCREENSHOT_URL}" "${FILENAME}" | xclip -sel clip
 
 	# Notify user
-	zenity --notification --text="Upload finished successfully!"
-	sleep 1s
-	# Get rekt zenity!
-        kill $!
+	notify-send "Upload finished successfully! File name created at: ${FILE_PATH} You have the path in your clipboard" --app-name="S3 Paster" --icon=face-angel
 else
 	echo "Upload aborted! No file written!"
 fi
