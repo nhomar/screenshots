@@ -16,14 +16,14 @@
 #################
 # Configuration #
 #################
-AWS_S3_BUCKET="s3.vauxoo.com"
-AWS_S3_PATH="screenshots/"
+AWS_S3_BUCKET="screenshots.vauxoo.com"
+AWS_S3_PATH="nhomar/" # THIS WILL BE USERNAME ON VAUXOO
 # Permissions can be set to private, public-read, public-read-write, authenticated-read, bucket-owner-read, bucket-owner-full-control and log-delivery-write
 AWS_S3_PERMISSIONS="public-read"
 AWS_REGION="us-east-1"
 
 SCREENSHOT_PATH="/mnt/datos/screenshots/"
-SCREENSHOT_URL="http://s3.vauxoo.com/screenshots/%s"
+SCREENSHOT_URL="http://${AWS_S3_BUCKET}/${AWS_S3_PATH}%s"
 
 ########################
 # END OF CONFIGURATION #
