@@ -17,7 +17,7 @@
 # Configuration #
 #################
 AWS_S3_BUCKET="screenshots.vauxoo.com"
-AWS_S3_PATH="nhomar/" # THIS WILL BE USERNAME ON VAUXOO
+AWS_S3_PATH="tulio" # THIS WILL BE USERNAME ON VAUXOO
 # Permissions can be set to private, public-read, public-read-write, authenticated-read, bucket-owner-read, bucket-owner-full-control and log-delivery-write
 AWS_S3_PERMISSIONS="public-read"
 AWS_REGION="us-east-1"
@@ -33,22 +33,18 @@ echo "Uploading to ${AWS_S3_BUCKET}/${AWS_S3_PATH}"
 # Generate a filename
 DATE=$(date +%H%M%S%j%y)
 RNDNAME=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 10 | head -n 1)
-FILENAME="${DATE}-${RNDNAME}.png"
-FILE_PATH="${SCREENSHOT_PATH}${FILENAME}"
-
+FILENAME="${DATE}-${RNDNAME}.jpg"
+FILE_PATH=${1}
 # Log
-echo "Writing Screenshot to ${FILE_PATH}"
-
-# Take screenshot
-shutter -n -c -s -o ${FILE_PATH} -e
+#echo "Writing Screenshot to ${FILE_PATH}"
 
 # Upload
-if [ -f ${FILE_PATH} ]; then
+if [ -f "${FILE_PATH}" ]; then
 	echo "Uploading ..."
-	aws s3 cp --region ${AWS_REGION} --acl ${AWS_S3_PERMISSIONS} ${FILE_PATH} s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}
+	aws s3 cp --region ${AWS_REGION} --acl "${AWS_S3_PERMISSIONS}" "${FILE_PATH}" s3://${AWS_S3_BUCKET}/${AWS_S3_PATH}/${FILENAME}
 
 	# Add to clipboard
-	printf "${SCREENSHOT_URL}" "${FILENAME}" | xclip -sel clip
+	printf "${SCREENSHOT_URL}" "/${FILENAME}" | xclip -sel clip
 
 	# Notify user
 	notify-send "Upload finished successfully! File name created at: ${FILE_PATH} You have the path in your clipboard" --app-name="S3 Paster" --icon=face-angel
