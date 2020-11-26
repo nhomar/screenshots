@@ -34,11 +34,16 @@ echo "Uploading to ${AWS_S3_BUCKET}/${AWS_S3_PATH}"
 # Generate a filename
 DATE=$(date +%H%M%S%j%y)
 RNDNAME=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w 10 | head -n 1)
-FILENAME="${DATE}-${RNDNAME}.jpg"
+FILENAME="${DATE}-${RNDNAME}.png"
 FILE_PATH=${1}
-# Log
-#echo "Writing Screenshot to ${FILE_PATH}"
 
+if [ -f "${FILE_PATH}" ]; then
+    echo "Creating screenshot"
+else
+    FILE_PATH=$SCREENSHOT_PATH/$FILENAME
+fi
+# Log
+shutter -n -c -s --delay=3 --output=${FILE_PATH} --clear_cache --exit_after_capture
 # Upload
 if [ -f "${FILE_PATH}" ]; then
 	echo "Uploading ..."
