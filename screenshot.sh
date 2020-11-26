@@ -41,9 +41,9 @@ if [ -f "${FILE_PATH}" ]; then
     echo "Creating screenshot"
 else
     FILE_PATH=$SCREENSHOT_PATH/$FILENAME
+    shutter -n -c -s --delay=3 --output=${FILE_PATH} --clear_cache --exit_after_capture
 fi
 # Log
-shutter -n -c -s --delay=3 --output=${FILE_PATH} --clear_cache --exit_after_capture
 # Upload
 if [ -f "${FILE_PATH}" ]; then
 	echo "Uploading ..."
