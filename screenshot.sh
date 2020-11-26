@@ -8,7 +8,8 @@
 # Requirements:
 #  - shutter
 #  - awscli
-#  - notify-send
+#  - notify-osd
+#  - libnotify-bin
 #  - xclip
 # Note: The directory defined in $SCREENSHOT_PATH needs to exist!
 #
@@ -17,12 +18,12 @@
 # Configuration #
 #################
 AWS_S3_BUCKET="screenshots.vauxoo.com"
-AWS_S3_PATH="tulio" # THIS WILL BE USERNAME ON VAUXOO
+AWS_S3_PATH="nhomar" # THIS WILL BE USERNAME ON VAUXOO
 # Permissions can be set to private, public-read, public-read-write, authenticated-read, bucket-owner-read, bucket-owner-full-control and log-delivery-write
 AWS_S3_PERMISSIONS="public-read"
-AWS_REGION="us-east-1"
+AWS_REGION="us-west-1"
 
-SCREENSHOT_PATH="/mnt/datos/screenshots/"
+SCREENSHOT_PATH="/home/$AWS_S3_PATH/Pictures/pantallazos/"
 SCREENSHOT_URL="http://${AWS_S3_BUCKET}/${AWS_S3_PATH}%s"
 
 ########################
